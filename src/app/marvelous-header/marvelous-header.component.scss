@@ -1,0 +1,58 @@
+.marvelous-top {
+  background: var(--marvelBlack);
+  height: 52px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border-bottom: solid 2px var(--marvelBorder);
+}
+
+.marvelous-detail {
+  background: var(--marvelBlack);
+  height: 15px;
+}
+
+.marvelous-banner {
+  position: relative;
+  background: var(--marvelBlack);
+  height: 320px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  margin-bottom: 20px;
+
+  .marvelous-banner-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    img {
+      //object-position: 0 -280px;
+      object-position: 0 -1080px;
+      opacity: 0.3;
+    }
+  }
+
+  .marvelous-breadcrumb {
+    position: relative;
+    top: 20px;
+    background: white;
+    color: var(--marvelRed);
+    width: 50%;
+    height: 40px;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-around;
+    min-width: 500px;
+
+    h1 {
+      border-top: 5px solid var(--marvelRed);
+      margin: 0;
+      padding: 0 25px;
+      font-size: 14px;
+      line-height: 40px;
+      font-weight: bold;
+    }
+  }
+}
+
