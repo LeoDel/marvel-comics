@@ -1,0 +1,46 @@
+<div class="modal-header">
+  <h3 class="modal-title">More About the Comic!</h3>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+
+  <div class="row">
+    <div class="col">
+      <p class="comic-info">
+        <span class="info-title">Comic Title:</span>
+        {{comic.title}}
+      </p>
+
+      <p class="comic-info">
+        <span class="info-title">Comic Description:</span>
+        {{comic.description}}
+      </p>
+    </div>
+
+    <div class="col">
+      <img src="assets/images/s17.png">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <p class="comic-info">
+        <span class="info-title">Authors:</span>
+        <span class="info-persona" *ngFor="let creator of comic.creators">
+          {{creator}}
+        </span>
+      </p>
+
+      <p class="comic-info">
+        <span class="info-title">Characters:</span>
+        <span class="info-persona" *ngFor="let character of comic.characters">
+          {{character}}
+        </span>
+      </p>
+    </div>
+  </div>
+
+</div>

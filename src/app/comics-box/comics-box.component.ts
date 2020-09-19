@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Comic} from '../comic';
 import {MarvelComicsService} from '../marvel-comics.service';
 import {PageEvent} from '@angular/material/paginator';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ComicModalComponent} from '../comic-modal/comic-modal.component';
 
 @Component({
   selector: 'app-comics-box',
@@ -14,10 +16,10 @@ export class ComicsBoxComponent implements OnInit {
   length = 100;
   pageSize = 10;
   pageSizeOptions: number[] = [10, 25, 100];
-  pageEvent: PageEvent;
 
   constructor(
-    private marvelComicService: MarvelComicsService
+    private marvelComicService: MarvelComicsService,
+    private modalService: NgbModal
   ) {
   }
 
@@ -37,4 +39,9 @@ export class ComicsBoxComponent implements OnInit {
       $event.pageIndex * $event.pageSize + $event.pageSize);
   }
 
+  moreAboutComic(comic): void {
+    // this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
+    const modalRef = this.modalService.open(ComicModalComponent);
+    modalRef.componentInstance.comic = comic;
+  }
 }

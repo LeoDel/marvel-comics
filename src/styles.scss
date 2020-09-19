@@ -12,3 +12,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   --marvelDetail: #c6a972;
   --marvelBorder: #393939;
 }
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';

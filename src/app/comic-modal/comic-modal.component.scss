@@ -1,0 +1,28 @@
+.modal-title {
+  margin: 0;
+}
+
+.comic-info {
+  margin-left: 5px;
+
+  .info-title {
+    display: inline-block;
+    width: 100%;
+    color: var(--marvelRed);
+    margin-left: -5px;
+  }
+
+  .info-persona {
+    display: inline-block;
+    background: var(--marvelRed);
+    color: white;
+    border-radius: 5px;
+    padding: 0 5px;
+    margin-right: 5px;
+    margin-bottom: 7px;
+  }
+}
+
+img {
+  width: 100%;
+}

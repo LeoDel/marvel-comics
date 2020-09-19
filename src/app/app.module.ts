@@ -9,12 +9,15 @@ import { ComicsBoxComponent } from './comics-box/comics-box.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ComicModalComponent } from './comic-modal/comic-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MarvelousHeaderComponent,
-    ComicsBoxComponent
+    ComicsBoxComponent,
+    ComicModalComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +25,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     HttpClientModule,
     MatCardModule,
     MatButtonModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
