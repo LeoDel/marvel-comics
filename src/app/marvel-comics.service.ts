@@ -25,18 +25,17 @@ export class MarvelComicsService {
   ) {
   }
 
-  getComics(): Comic[] {
+  simpleGetComics(): Comic[] {
     return COMICS;
   }
 
-  // getComics(): Observable<Comic[]> {
-  //   // return this.http.get<Comic[]>(`${this.comicsUrl}comics`, this.httpOptions)
-  //   return this.http.get<Comic[]>(``)
-  //     .pipe(
-  //       tap(_ => console.log('got them comics')),
-  //       catchError(this.handleError<Comic[]>('getComics', []))
-  //     );
-  // }
+  getComics(): Observable<Comic[]> {
+    return this.http.get<Comic[]>(`${this.comicsUrl}comics`, this.httpOptions)
+      .pipe(
+        tap(_ => console.log('got them comics')),
+        catchError(this.handleError<Comic[]>('getComics', []))
+      );
+  }
 
   // tslint:disable-next-line:typedef
   private handleError<T>(operation = 'operation', result?: T): any {

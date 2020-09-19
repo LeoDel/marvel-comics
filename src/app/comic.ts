@@ -1,5 +1,5 @@
 export interface Comic {
-  id: number;
+  id: string;
   title: string;
   variantDescription: string;
   description: string;
@@ -7,6 +7,6 @@ export interface Comic {
   // collections: [];
   // thumbnail (Image, optional): The representative image for this comic.,
   // images (Array[Image], optional): A list of promotional images associated with this comic.,
-  // creators: [];
+  creators: string[];
   // characters: [];
 }

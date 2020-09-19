@@ -1,10 +1,36 @@
-<mat-card class="comic-card" *ngFor="let comic of comics">
-  <mat-card-header>
-    <mat-card-title>{{comic.title}}</mat-card-title>
-    <mat-card-subtitle>{{comic.description}}</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content><p>{{comic.pageCount}}</p></mat-card-content>
-  <mat-card-actions>
-    <button mat-raised-button color="warn">MORE!</button>
-  </mat-card-actions>
-</mat-card>
+<div class="container-fluid">
+  <div class="comics-container">
+    <mat-card class="comic-card" *ngFor="let comic of comicsToShow">
+      <mat-card-header>
+        <mat-card-title>{{comic.title}}</mat-card-title>
+<!--            <mat-card-subtitle>{{comic.id}}</mat-card-subtitle>-->
+        <!--    <mat-card-subtitle>{{comic.description}}</mat-card-subtitle>-->
+      </mat-card-header>
+
+      <img mat-card-image src="assets/images/s17.png">
+
+      <mat-card-content>
+        <span *ngFor="let creator of comic.creators; index as creatorIndex">
+          {{creatorIndex > 0 ? ", " : ""}}
+          {{creator}}
+    </span>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="warn">MORE!</button>
+      </mat-card-actions>
+    </mat-card>
+
+    <div *ngIf="pageEvent">
+      <h5>Page Change Event Properties</h5>
+      <div>List length: {{pageEvent.length}}</div>
+      <div>Page size: {{pageEvent.pageSize}}</div>
+      <div>Page index: {{pageEvent.pageIndex}}</div>
+    </div>
+
+    <mat-paginator
+      [length]="length"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="onPageChange($event)"></mat-paginator>
+  </div>
+</div>
