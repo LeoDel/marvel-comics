@@ -1,19 +1,27 @@
-<div class="container-fluid">
-  <div class="comics-container">
-    <mat-card class="comic-card" *ngFor="let comic of comicsToShow">
+<div class="container-fluid comics-container">
+
+    <div class="comics-loader" *ngIf="gettingComics">
+      <fa-icon [icon]="faCircleNotch" [spin]="true"></fa-icon>
+    </div>
+
+    <mat-card class="comic-card" *ngFor="let comic of comics">
       <mat-card-header>
         <mat-card-title>{{comic.title}}</mat-card-title>
+<!--        <h1>{{comic.images.length}}</h1>-->
 <!--            <mat-card-subtitle>{{comic.id}}</mat-card-subtitle>-->
         <!--    <mat-card-subtitle>{{comic.description}}</mat-card-subtitle>-->
       </mat-card-header>
 
-      <img mat-card-image src="assets/images/s17.png">
+<!--      <img mat-card-image src="assets/images/s17.png">-->
+      <div class="mat-card-image">
+        <img [src]="getThumbnailUrl(comic)">
+      </div>
 
       <mat-card-content>
-        <span *ngFor="let creator of comic.creators; index as creatorIndex">
+        <span *ngFor="let creator of comic.creators.items; index as creatorIndex">
           {{creatorIndex > 0 ? ", " : ""}}
-          {{creator}}
-    </span>
+          {{creator.name}}
+        </span>
       </mat-card-content>
       <mat-card-actions>
         <button mat-raised-button color="warn" (click)="moreAboutComic(comic)">MORE!</button>
@@ -23,9 +31,7 @@
     <mat-paginator
       [length]="length"
       [pageSize]="pageSize"
-      [pageSizeOptions]="pageSizeOptions"
       (page)="onPageChange($event)"></mat-paginator>
-  </div>
 </div>
 
 <ng-template #test let-modal>

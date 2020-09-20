@@ -8,39 +8,72 @@
 <div class="modal-body">
 
   <div class="row">
-    <div class="col">
+    <div class="col-md">
       <p class="comic-info">
         <span class="info-title">Comic Title:</span>
         {{comic.title}}
       </p>
-
+      <p class="comic-info">
+        <span class="info-title">Issue Number:</span>
+        {{comic.issueNumber}}
+      </p>
+      <p class="comic-info" *ngIf="comic.series">
+        <span class="info-title">Comic Series:</span>
+        {{comic.series.name}}
+      </p>
       <p class="comic-info">
         <span class="info-title">Comic Description:</span>
         {{comic.description}}
       </p>
+      <p class="comic-info">
+        <span class="info-title">Page Count:</span>
+        {{comic.pageCount}}
+      </p>
+<!--      <p class="comic-info">-->
+<!--        <span class="info-title">Creators:</span>-->
+<!--        {{comic.pageCount}}-->
+<!--      </p>-->
+
+            <p class="comic-info">
+              <span class="info-title">Creators:</span>
+              <span class="info-persona" *ngFor="let creator of comic.creators.items">
+                {{creator.name}}
+              </span>
+            </p>
+
+            <p class="comic-info">
+              <span class="info-title">Characters:</span>
+              <span class="info-persona" *ngFor="let character of comic.characters.items">
+                {{character.name}}
+              </span>
+            </p>
+
     </div>
 
-    <div class="col">
-      <img src="assets/images/s17.png">
+    <div class="col mb-3" *ngIf="comic.images.length>0">
+      <ngb-carousel>
+        <ng-template ngbSlide *ngFor="let image of comic.images">
+          <img [src]="image.path.concat('.', image.extension)">
+        </ng-template>
+      </ngb-carousel>
     </div>
   </div>
+<!--  <div class="row">-->
+<!--    <div class="col-md">-->
+<!--      <p class="comic-info">-->
+<!--        <span class="info-title">Authors:</span>-->
+<!--        <span class="info-persona" *ngFor="let creator of comic.creators">-->
+<!--          {{creator}}-->
+<!--        </span>-->
+<!--      </p>-->
 
-  <div class="row">
-    <div class="col">
-      <p class="comic-info">
-        <span class="info-title">Authors:</span>
-        <span class="info-persona" *ngFor="let creator of comic.creators">
-          {{creator}}
-        </span>
-      </p>
-
-      <p class="comic-info">
-        <span class="info-title">Characters:</span>
-        <span class="info-persona" *ngFor="let character of comic.characters">
-          {{character}}
-        </span>
-      </p>
-    </div>
-  </div>
+<!--      <p class="comic-info">-->
+<!--        <span class="info-title">Characters:</span>-->
+<!--        <span class="info-persona" *ngFor="let character of comic.characters">-->
+<!--          {{character}}-->
+<!--        </span>-->
+<!--      </p>-->
+<!--    </div>-->
+<!--  </div>-->
 
 </div>

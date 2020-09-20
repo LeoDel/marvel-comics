@@ -4,6 +4,7 @@ import {MarvelComicsService} from '../marvel-comics.service';
 import {PageEvent} from '@angular/material/paginator';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ComicModalComponent} from '../comic-modal/comic-modal.component';
+import {faCircleNotch} from '@fortawesome/free-solid-svg-icons/faCircleNotch';
 
 @Component({
   selector: 'app-comics-box',
@@ -12,10 +13,11 @@ import {ComicModalComponent} from '../comic-modal/comic-modal.component';
 })
 export class ComicsBoxComponent implements OnInit {
   comics: Comic[];
-  comicsToShow: Comic[];
+  faCircleNotch = faCircleNotch;
+  gettingComics = true;
   length = 100;
   pageSize = 10;
-  pageSizeOptions: number[] = [10, 25, 100];
+  orderByOptions: string[] = ['10'];
 
   constructor(
     private marvelComicService: MarvelComicsService,
@@ -24,24 +26,32 @@ export class ComicsBoxComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.comics = this.marvelComicService.simpleGetComics();
-    this.comicsToShow = this.comics.slice(0, 10);
-    this.length = this.comics.length;
-    // this.marvelComicService.getComics()
-    //   .subscribe(data => {
-    //     console.log("HERE!");
-    //     console.log(data);
-    //   });
+    this.getComics();
+  }
+
+  getComics(offset = '0'): void {
+    this.gettingComics = true;
+    this.comics = [];
+    this.marvelComicService.getComics(this.pageSize, offset)
+      .subscribe(data => {
+        this.comics = data['results'];
+        this.length = data['total'];
+        this.gettingComics = false;
+      });
   }
 
   onPageChange($event): void {
-    this.comicsToShow = this.comics.slice($event.pageIndex * $event.pageSize,
-      $event.pageIndex * $event.pageSize + $event.pageSize);
+    const offset = $event.pageIndex * $event.pageSize;
+    this.getComics(offset.toString());
   }
 
   moreAboutComic(comic): void {
     // this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
-    const modalRef = this.modalService.open(ComicModalComponent);
+    const modalRef = this.modalService.open(ComicModalComponent, {size: 'xl'});
     modalRef.componentInstance.comic = comic;
+  }
+
+  getThumbnailUrl(comic: Comic): string {
+    return comic.thumbnail.path.concat('.', comic.thumbnail.extension);
   }
 }

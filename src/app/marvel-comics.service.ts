@@ -3,7 +3,6 @@ import {Comic} from './comic';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
-import {COMICS} from './mock-comics';
 
 @Injectable({
   providedIn: 'root'
@@ -11,27 +10,36 @@ import {COMICS} from './mock-comics';
 export class MarvelComicsService {
 
   private comicsUrl = 'https://gateway.marvel.com/v1/public/';
-  private httpParams = new HttpParams().set('apikey', 'c36291d9364ba5f07ed04e935c20d28a');
-  private httpOptions = {
-    headers: new HttpHeaders({
-      Accept: '*/*',
-      apikey: 'c36291d9364ba5f07ed04e935c20d28a'
-    }),
-  };
-
 
   constructor(
     private http: HttpClient
   ) {
   }
 
-  simpleGetComics(): Comic[] {
-    return COMICS;
-  }
+  // simpleGetComics(): Comic[] {
+  //   return COMICS;
+  // }
 
-  getComics(): Observable<Comic[]> {
-    return this.http.get<Comic[]>(`${this.comicsUrl}comics`, this.httpOptions)
+  getComics(limit, offset): Observable<object> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Accept: '*/*'
+      }),
+      params: new HttpParams()
+        .append('apikey', 'c36291d9364ba5f07ed04e935c20d28a')
+        .append('format', 'comic')
+        .append('formatType', 'comic')
+        .append('orderBy', 'issueNumber')
+        .append('limit', limit)
+        .append('offset', offset)
+    };
+
+    return this.http.get(`${this.comicsUrl}comics`, httpOptions)
       .pipe(
+        map(response => {
+          const result = response['data'];
+          return result;
+        }),
         tap(_ => console.log('got them comics')),
         catchError(this.handleError<Comic[]>('getComics', []))
       );

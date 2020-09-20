@@ -1,12 +1,43 @@
 export interface Comic {
   id: number;
   title: string;
+  issueNumber: number;
   variantDescription: string;
   description: string;
   pageCount: number;
-  // collections: [];
-  // thumbnail (Image, optional): The representative image for this comic.,
-  // images (Array[Image], optional): A list of promotional images associated with this comic.,
-  creators: string[];
-  characters: string[];
+  resourceURI: string;
+  series: {
+    'resourceURI': string;
+    'name': string;
+  };
+  variants: any[];
+  collections: any[];
+  collectedIssues: any[];
+  dates: any[];
+  prices: any[];
+  thumbnail: {
+    path: string;
+    extension: string;
+  };
+  images: [{
+    path: string;
+    extension: string;
+  }];
+  creators: {
+      items: [
+        {
+          resourceURI: string;
+          name: string;
+          role: string;
+        }
+      ]
+    };
+  characters: {
+      items: [
+        {
+          resourceURI: string;
+          name: string;
+        }
+      ]
+    };
 }
