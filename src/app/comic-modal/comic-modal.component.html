@@ -29,25 +29,18 @@
         <span class="info-title">Page Count:</span>
         {{comic.pageCount}}
       </p>
-<!--      <p class="comic-info">-->
-<!--        <span class="info-title">Creators:</span>-->
-<!--        {{comic.pageCount}}-->
-<!--      </p>-->
-
-            <p class="comic-info">
-              <span class="info-title">Creators:</span>
-              <span class="info-persona" *ngFor="let creator of comic.creators.items">
+      <p class="comic-info">
+        <span class="info-title">Creators:</span>
+        <span class="info-persona" *ngFor="let creator of comic.creators.items">
                 {{creator.name}}
               </span>
-            </p>
-
-            <p class="comic-info">
-              <span class="info-title">Characters:</span>
-              <span class="info-persona" *ngFor="let character of comic.characters.items">
+      </p>
+      <p class="comic-info">
+        <span class="info-title">Characters:</span>
+        <span class="info-persona" *ngFor="let character of comic.characters.items">
                 {{character.name}}
               </span>
-            </p>
-
+      </p>
     </div>
 
     <div class="col mb-3" *ngIf="comic.images.length>0">
@@ -58,22 +51,4 @@
       </ngb-carousel>
     </div>
   </div>
-<!--  <div class="row">-->
-<!--    <div class="col-md">-->
-<!--      <p class="comic-info">-->
-<!--        <span class="info-title">Authors:</span>-->
-<!--        <span class="info-persona" *ngFor="let creator of comic.creators">-->
-<!--          {{creator}}-->
-<!--        </span>-->
-<!--      </p>-->
-
-<!--      <p class="comic-info">-->
-<!--        <span class="info-title">Characters:</span>-->
-<!--        <span class="info-persona" *ngFor="let character of comic.characters">-->
-<!--          {{character}}-->
-<!--        </span>-->
-<!--      </p>-->
-<!--    </div>-->
-<!--  </div>-->
-
 </div>

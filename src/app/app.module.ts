@@ -12,6 +12,9 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ComicModalComponent } from './comic-modal/comic-modal.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {MatInputModule} from '@angular/material/input';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MatButtonModule,
     MatPaginatorModule,
     NgbModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,3 +1,27 @@
+<div class="container">
+  <mat-form-field class="comics-search">
+    <mat-label>OrderBy</mat-label>
+    <mat-select [(value)]="orderBy" (valueChange)="orderByChanged()">
+      <mat-option value="onsaleDate">Sale Date (asc)</mat-option>
+      <mat-option value="-onsaleDate">Sale Date (desc)</mat-option>
+      <mat-option value="title">Title (asc)</mat-option>
+      <mat-option value="-title">Title (desc)</mat-option>
+      <mat-option value="issueNumber">Issue Number (asc)</mat-option>
+      <mat-option value="-issueNumber">Issue Number (desc)</mat-option>
+    </mat-select>
+  </mat-form-field>
+<!--  <input type="text"-->
+<!--         placeholder="Search For Characters"-->
+<!--         matInput-->
+<!--         [matAutocomplete]="characters"-->
+<!--  >-->
+<!--  <mat-autocomplete autoActiveFirstOption #characters>-->
+<!--    <mat-option *ngFor="let character of orderByOptions">-->
+<!--      {{character}}-->
+<!--    </mat-option>-->
+<!--  </mat-autocomplete>-->
+</div>
+
 <div class="container-fluid comics-container">
 
     <div class="comics-loader" *ngIf="gettingComics">
@@ -7,12 +31,8 @@
     <mat-card class="comic-card" *ngFor="let comic of comics">
       <mat-card-header>
         <mat-card-title>{{comic.title}}</mat-card-title>
-<!--        <h1>{{comic.images.length}}</h1>-->
-<!--            <mat-card-subtitle>{{comic.id}}</mat-card-subtitle>-->
-        <!--    <mat-card-subtitle>{{comic.description}}</mat-card-subtitle>-->
       </mat-card-header>
 
-<!--      <img mat-card-image src="assets/images/s17.png">-->
       <div class="mat-card-image">
         <img [src]="getThumbnailUrl(comic)">
       </div>
@@ -29,32 +49,8 @@
     </mat-card>
 
     <mat-paginator
+      #paginator
       [length]="length"
       [pageSize]="pageSize"
       (page)="onPageChange($event)"></mat-paginator>
 </div>
-
-<ng-template #test let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form>
-      <div class="form-group">
-        <label for="dateOfBirth">Date of birth</label>
-        <div class="input-group">
-          <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
-          </div>
-        </div>
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
-  </div>
-</ng-template>

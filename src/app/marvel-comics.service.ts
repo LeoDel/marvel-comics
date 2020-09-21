@@ -20,8 +20,9 @@ export class MarvelComicsService {
   //   return COMICS;
   // }
 
-  getComics(limit, offset): Observable<object> {
-    const httpOptions = {
+  getComics(limit, offset, orderBy): Observable<object> {
+    console.log(`getComics(${limit}, ${offset}, ${orderBy})`);
+    let httpOptions = {
       headers: new HttpHeaders({
         Accept: '*/*'
       }),
@@ -29,7 +30,8 @@ export class MarvelComicsService {
         .append('apikey', 'c36291d9364ba5f07ed04e935c20d28a')
         .append('format', 'comic')
         .append('formatType', 'comic')
-        .append('orderBy', 'issueNumber')
+        // .append('orderBy', 'issueNumber')
+        .append('orderBy', orderBy ? orderBy : '')
         .append('limit', limit)
         .append('offset', offset)
     };

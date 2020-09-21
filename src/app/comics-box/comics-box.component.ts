@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Comic} from '../comic';
 import {MarvelComicsService} from '../marvel-comics.service';
-import {PageEvent} from '@angular/material/paginator';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ComicModalComponent} from '../comic-modal/comic-modal.component';
 import {faCircleNotch} from '@fortawesome/free-solid-svg-icons/faCircleNotch';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-comics-box',
@@ -17,7 +17,9 @@ export class ComicsBoxComponent implements OnInit {
   gettingComics = true;
   length = 100;
   pageSize = 10;
-  orderByOptions: string[] = ['10'];
+  orderBy = null;
+  // orderByOptions: string[] = ['one', 'two', 'three'];
+  @ViewChild('paginator') matPaginator: MatPaginator;
 
   constructor(
     private marvelComicService: MarvelComicsService,
@@ -26,13 +28,13 @@ export class ComicsBoxComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getComics();
+    this.getComics(0);
   }
 
-  getComics(offset = '0'): void {
+  getComics(offset): void {
     this.gettingComics = true;
     this.comics = [];
-    this.marvelComicService.getComics(this.pageSize, offset)
+    this.marvelComicService.getComics(this.pageSize, offset, this.orderBy)
       .subscribe(data => {
         this.comics = data['results'];
         this.length = data['total'];
@@ -46,12 +48,16 @@ export class ComicsBoxComponent implements OnInit {
   }
 
   moreAboutComic(comic): void {
-    // this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
     const modalRef = this.modalService.open(ComicModalComponent, {size: 'xl'});
     modalRef.componentInstance.comic = comic;
   }
 
   getThumbnailUrl(comic: Comic): string {
     return comic.thumbnail.path.concat('.', comic.thumbnail.extension);
+  }
+
+  orderByChanged(): void {
+    this.matPaginator.firstPage();
+    this.getComics(0);
   }
 }
