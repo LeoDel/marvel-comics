@@ -1,56 +1,76 @@
-<div class="container">
-  <mat-form-field class="comics-search">
-    <mat-label>OrderBy</mat-label>
-    <mat-select [(value)]="orderBy" (valueChange)="orderByChanged()">
-      <mat-option value="onsaleDate">Sale Date (asc)</mat-option>
-      <mat-option value="-onsaleDate">Sale Date (desc)</mat-option>
-      <mat-option value="title">Title (asc)</mat-option>
-      <mat-option value="-title">Title (desc)</mat-option>
-      <mat-option value="issueNumber">Issue Number (asc)</mat-option>
-      <mat-option value="-issueNumber">Issue Number (desc)</mat-option>
-    </mat-select>
-  </mat-form-field>
-<!--  <input type="text"-->
-<!--         placeholder="Search For Characters"-->
-<!--         matInput-->
-<!--         [matAutocomplete]="characters"-->
-<!--  >-->
-<!--  <mat-autocomplete autoActiveFirstOption #characters>-->
-<!--    <mat-option *ngFor="let character of orderByOptions">-->
-<!--      {{character}}-->
-<!--    </mat-option>-->
-<!--  </mat-autocomplete>-->
+<div class="container comics-search">
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-2">
+      <mat-form-field>
+        <mat-label>OrderBy</mat-label>
+        <mat-select [(value)]="orderBy" (valueChange)="orderByChanged()">
+          <mat-option value="onsaleDate">Sale Date (asc)</mat-option>
+          <mat-option value="-onsaleDate">Sale Date (desc)</mat-option>
+          <mat-option value="title">Title (asc)</mat-option>
+          <mat-option value="-title">Title (desc)</mat-option>
+          <mat-option value="issueNumber">Issue Number (asc)</mat-option>
+          <mat-option value="-issueNumber">Issue Number (desc)</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-2">
+      <mat-form-field>
+        <input placeholder="Search for a Character!"
+               #charSearch
+               (input)="searchCharacter(charSearch.value)"
+               [matAutocomplete]="auto"
+               [disabled]="characterInputDisabled"
+               matInput>
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
+                          [displayWith]="characterSearchDisplayWith"
+                          (optionSelected)="applySelectedCharacter($event.option.value)">
+          <mat-option *ngFor="let character of characters$ | async" [value]="character">
+            {{character.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-2">
+      <button (click)="charSearch.value = ''; emptyCharacterSearch()"
+              mat-raised-button
+              color="warn">
+        Clear Selected Character
+      </button>
+    </div>
+  </div>
 </div>
 
 <div class="container-fluid comics-container">
 
-    <div class="comics-loader" *ngIf="gettingComics">
-      <fa-icon [icon]="faCircleNotch" [spin]="true"></fa-icon>
+  <div class="comics-loader" *ngIf="gettingComics">
+    <fa-icon [icon]="faCircleNotch" [spin]="true"></fa-icon>
+  </div>
+
+  <mat-card class="comic-card" *ngFor="let comic of comics">
+    <mat-card-header>
+      <mat-card-title>{{comic.title}}</mat-card-title>
+    </mat-card-header>
+
+    <div class="mat-card-image">
+      <img [src]="getThumbnailUrl(comic)">
     </div>
 
-    <mat-card class="comic-card" *ngFor="let comic of comics">
-      <mat-card-header>
-        <mat-card-title>{{comic.title}}</mat-card-title>
-      </mat-card-header>
-
-      <div class="mat-card-image">
-        <img [src]="getThumbnailUrl(comic)">
-      </div>
-
-      <mat-card-content>
+    <mat-card-content>
         <span *ngFor="let creator of comic.creators.items; index as creatorIndex">
           {{creatorIndex > 0 ? ", " : ""}}
           {{creator.name}}
         </span>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-raised-button color="warn" (click)="moreAboutComic(comic)">MORE!</button>
-      </mat-card-actions>
-    </mat-card>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="warn" (click)="moreAboutComic(comic)">MORE!</button>
+    </mat-card-actions>
+  </mat-card>
 
-    <mat-paginator
-      #paginator
-      [length]="length"
-      [pageSize]="pageSize"
-      (page)="onPageChange($event)"></mat-paginator>
+  <mat-paginator
+    #paginator
+    [length]="length"
+    [pageSize]="pageSize"
+    (page)="onPageChange($event)"></mat-paginator>
 </div>
